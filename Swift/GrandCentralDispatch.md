@@ -1,5 +1,5 @@
 # Grand Central Dispatch(GCD)
-
+- 큰 분류로는 Dispatch || Queue
 - 동시성 프로그래밍: 작업(Task)을 여러 쓰레드에서 동시에 분산처리하기 위함
 - 쓰레드 관리는 iOS가 알아서 해줌
 - Thread: the lowest level of execution
@@ -11,3 +11,7 @@ queue.async {
     
 }
 ```
+
+
+## 출처
+- [inflearn](https://www.inflearn.com/course/iOS-Concurrency-GCD-Operation)
