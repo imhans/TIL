@@ -1,66 +1,35 @@
 # [SwiftUI] ScrollView Offset
-- 앱 사이즈가 복잡해지고 커졌을 때 퍼포먼스 이슈 검토필요
-- custom struct that can obtain the offset and some of its uses
-- Key is moving the geometry reader above the ScrollView's content, and then hide it with a negative padding on the actual content
-- The .frame(in: .named("scroll")) is required to get the frame relative to the ScrollView and obtain a 0 offset when at the top, without the height of the safe area. If you try using .frame(in: .global) you will get a non-zero value when the scroll view is at the top (20 or 44, depends on the device)
-
-## Struct
-```swift
-struct ScrollViewOffset<Content: View>: View {
-  let content: () -> Content
-
-  init(@ViewBuilder content: @escaping () -> Content) {
-    self.content = content
-  }
-
-  var body: some View {
-    ScrollView {
-      offsetReader
-      content()
-        .padding(.top, -8) // for some reason there offsetReader take some spaces above content()
-    }
-    .coordinateSpace(name: "frameLayer")
-  }
-
-  var offsetReader: some View {
-    GeometryReader { proxy in
-      Color.clear
-        .preference(
-          key: OffsetPreferenceKey.self,
-          value: proxy.frame(in: .named("frameLayer")).minY
-        )
-    }
-    .frame(height: 0)
-  }
-}
-```
+- scrollViewOffset property를 이용하여 view update 시 rendering issue 발생..
 
 ## Usage
 ```swift
-@State private var scrollOffset: CGFloat = .zero
+@State private var scrollViewOffset: CGFloat = .zero
+@State private var startOffset: CGFloat = .zero
 
   var body: some View {
-    ScrollViewOffset {
-      LazyVStack {
-        ForEach(0..<100) { index in
-          Text("\(index)")
+    ScrollViewReader { proxy in
+      ScrollView { 
+        VStack {
+          contentView
         }
+        .padding()
+        .overlay(
+          GeometryReader { geometry in
+            DispatchQueue.main.asyn {
+              if startOffset == 0 {
+                self.startOffset = geometry.frame(in: .global).minY
+              }
+              let offset = geometry.frame(in: .global).minY
+              self.scrollViewOffset = offset - startOffset
+
+              print(self.scrollViewOffset)
+            }
+          }
+          .frame(width: 0, height: 0)
+          ,alignment: .top
+        )
       }
-    } onOffsetChange: {
-      scrollOffset = $0
     }
-  }
-  
-  var opacity: Double {
-    switch scrollOffset {
-    case -100...0:
-      return Double(-scrollOffset) / 100.0
-    case ...(-100):
-      return 1
-    default:
-      return 0
-    }
-  }
 ```
 
 ## 출처
