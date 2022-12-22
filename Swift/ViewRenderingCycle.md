@@ -1,9 +1,9 @@
 # **[SwiftUI] ScrollView Offset 사용하다 깨달은 View Rendering Cycle**
 
 ## **배경**
-- ScrollView의 스크롤 움직임에 따른 offset value를 이용하여 몇몇 View에 offset value가 변함에 따라 opacity 및 이미지 변경을 주는 작업 중 스크롤 퍼포먼스 이슈생김, 부드러운 스크롤링이 아닌 뚝뚝 끊기는 스크롤링
-- 여러가지 시행착오 결과, offset value가 변동될 때마다(=스크롤링 할때마다) 특정 뷰만이 아닌 ScrollView를 포함하는 부모뷰 전체가 랜더링이 되고 있다는 가설이 세워짐
-- 테스트 결과 예상이 맞았고 View Rendering Cycle 중 body computed property가 호출되는 방식을 바탕으로 스크롤 움직임 시 래깅 문제를 해결함
+- ScrollView의 스크롤 움직임에 따른 offset value(@State)가 변함에 따라 opacity 및 이미지 변경을 주는 작업 중 스크롤 퍼포먼스 이슈생김, 부드러운 스크롤링이 아닌 뚝뚝 끊기는 스크롤링
+- 여러가지 시행착오 결과, offset value가 변동될 때마다(=스크롤링 할때마다) 특정 뷰만이 아닌 ScrollView를 포함하는 부모뷰 전체가 re-rendering이 되고 있다는 가설이 세워짐
+- 테스트 결과 예상이 맞았으며 View Rendering Cycle 중 body computed property가 호출되는 방식을 바탕으로 스크롤 움직임 시 래깅 문제를 해결함
 
 ## **View Rendering Cycle**
 <img src="https://user-images.githubusercontent.com/38341386/209132904-6ac6a409-8571-4bb3-9a62-37893d4dff1a.png" width="80%">
@@ -13,13 +13,13 @@
 
 > Note that only views that are connected to the state can provide custom equality implementation. 
 > Views not connected to the state are always re-rendered.
-- **쉽게 얘기하면, Updating phase에 일련의 절차를 거친 후 전체 View hierarchy가 속한 body computed property 자체를 re-render한다. 하지만 그 중 State property들은 업데이트가 없으면 re-render 되지 않는다.**
+- **쉽게 얘기하면, Updating phase에서 일련의 절차를 거친 후 전체 View hierarchy가 속한 body computed property 자체를 re-render한다. 하지만 그 중 State property들은 업데이트가 없으면 re-render 되지 않는다.**
 - State property가 업데이트 될 때마다 property를 소유하는 View의 body 안 모든 뷰가 re-rendered 되어왔다는 의미
 - State property는 sourt of truth 일 뿐이며 view rendering과는 별도로 생각해야하는데 무의식적으로 State property만 업데이트 될 것이라 치부해왔음
-- 그러나 offset property는 value가 소수점 단위로 바뀌는데 그때마다 전체 View가 re-rendered 되었다고 하니 처음의 래깅 문제가 이해가 되었음
+- 그러나 offset property는 value가 소수점 단위로 바뀌는데 그때마다 전체 View가 re-rendered 되었다고 하니 처음의 래깅 문제가 이해되었음
 - *그렇다면 state이 변화할 때 전체 View를 re-rendering 하고 싶지 않다면 어떻게 해야할까*
 
-## **Add another View with a body property**
+## **Define Custom Views using the View Protocol's body Property**
 ```swift
 struct ViewRenderingCycle: View {
     @State private var counter: Int = 0
