@@ -19,6 +19,3 @@
 ## 출처
 - [클로저에서의 weak self 에 대해 알아보자](https://bongcando.tistory.com/20)
 - [Weak self 무조건 사용하는게 맞는걸까](https://noah0316.github.io/Swift/2022-04-08-[weak-self]-%EB%AC%B4%EC%A1%B0%EA%B1%B4-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%EA%B2%8C-%EB%A7%9E%EB%8A%94%EA%B1%B8%EA%B9%8C/)
-
-
-account changing test
