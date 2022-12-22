@@ -149,4 +149,5 @@ public protocol View {
 ## **출처**
 - [SwiftUI ScrollView offset 101](https://www.fivestars.blog/articles/scrollview-offset/)
 - [SwiftUI View Lifecycle](https://www.vadimbulavin.com/swiftui-view-lifecycle/)
+- [[SwiftUI] View를 redraw 하는 조건은 어떻게 될까?](https://sujinnaljin.medium.com/swiftui-view%EB%A5%BC-redraw-%ED%95%98%EB%8A%94-%EC%A1%B0%EA%B1%B4%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%90%A0%EA%B9%8C-db3d7551df2)
 - [Why does SwiftUI use “some View” for its view type?](https://www.hackingwithswift.com/books/ios-swiftui/why-does-swiftui-use-some-view-for-its-view-type)
