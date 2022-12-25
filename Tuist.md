@@ -7,8 +7,11 @@
 - 협업 시 주로 xcodeproj 혹은 xcworkspace에서 잦은 conflict 발생
 - Tuist에서는 command 명령어를 통해 xcodeproj, xcworkspace 생성
 - 그 후 Tuist의 Project.swift 파일을 통해 의존성/타겟/프로젝트 설정들을 관리
+- 클린 아키텍처를 위한 모듈화(Modularization) 구성에 유용
+- CocoaPods 지원안함
 
 
 ### 출처
-- [Tsuist Readme.md](https://github.com/tuist/tuist)
+- [Tuist Github Readme.md](https://github.com/tuist/tuist)
 - [모듈화 개념 - Tuist로 프로젝트 관리 방법](https://ios-development.tistory.com/1006)
+- [당근마켓) XcodeGen 에서 Tuist 로 전환하기](https://medium.com/daangn/xcodegen-%EC%97%90%EC%84%9C-tuist-%EB%A1%9C-%EC%A0%84%ED%99%98%ED%95%98%EA%B8%B0-3f0156e0c2ea)
