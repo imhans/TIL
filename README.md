@@ -3,6 +3,7 @@
 - [Unit Test](UnitTest.md)
 
 # Swift
+- [StateObject Lifecycle 알아보기](Swift/StateObject.md)
 - [Grand Central Dispatch(GCD)](Swift/GrandCentralDispatch.md)
 - [Async / await](Swift/Async.md)
 - [CoreBluetooth](Swift/CoreBluetooth.md)
