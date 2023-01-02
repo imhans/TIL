@@ -85,6 +85,8 @@ A unit of asynchronous work.
 - Task는 비동기함수(await)를 사용 가능한 플랫폼
 - await 마킹은 potential suspension point 일 수 있다는 점 참고, 스레드 제어권을 포기하는 시점; 양보(yielding)
 - system의 다른 thread에서 중단된 함수를 픽업하여 resume하는 느낌
+- Task<(), Never> instance 참조하여 .cancel(), .checkCancellation() 등으로 관리
+- .task {} 는 iOS 15.0+ -> automatically cancels the task if the view disappears
 
 
 ## 출처
