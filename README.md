@@ -7,7 +7,7 @@
 - [Value Types and Refrenece Types](Swift/Types.md)
 - [StateObject Lifecycle](Swift/StateObject.md)
 - [Grand Central Dispatch(GCD)](Swift/GrandCentralDispatch.md)
-- [Async / await](Swift/Async.md)
+- [Async / await](Swift/AsyncAwait.md)
 - [CoreBluetooth](Swift/CoreBluetooth.md)
 - [Protocol-oriendted Programming](Swift/ProtocolOriented.md)
 - [Memory Management and ARC](Swift/MemoryManagement.md)
