@@ -75,15 +75,15 @@ enum Environment {
     case staging
     case production
 
-    func baseUrl() -> String {
+    var baseUrl: String {
         "https://\(subDomain()).\(domain())"
     }
-    func domain() -> String {
+    var domain: String {
         case development: "abc.com"
         case staging: "bcd.com"
         case production: "cde.com"
     }
-    func subDomain() -> String {
+    var subDomain: String {
         switch self {
             case .development, .staging, .production:
             "api"
@@ -132,7 +132,7 @@ let environment = Environment.development
 let environment = Environment.production
 #endif
 
-let baseURL = environment.baseURL()
+let baseURL = environment.baseURL
 
 struct Path {
     var login: String { return "\(baseURL)/loginapi" }
