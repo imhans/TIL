@@ -5,6 +5,7 @@
 - [Compiletime vs. Runtime](Compiletime.md)
 
 # Swift
+- [AVFoundation](Swift/AVFoundation.md)
 - [Generics](Swift/Generics.md)
 - [Value Types and Refrenece Types](Swift/Types.md)
 - [StateObject Lifecycle](Swift/StateObject.md)
