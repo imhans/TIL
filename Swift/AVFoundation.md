@@ -5,7 +5,7 @@
 - iOS, macOS, watchOS용 시청각 미디어 프레임워크
 - Apple 플랫폼에서 시청각 미디어를 검사, 재생, 캡처 및 처리하기 위한 광범위한 작업을 함께 포함하는 몇 가지 주요 기술 영역을 결합
 - Topics
-    - Common, Playback, Capture, Editing, Audio
+    - Common, Playback, **Capture**, Editing, Audio
 - AVKit과의 차이
     - AVFoundation이 상대적으로 더 low-level framework이기에 커스텀 시 적합
     - AVKit은 AVFoundation 위에 구축된 companion framework, view-level interface에 가까워 표준 UI 만들시에 용이
@@ -19,7 +19,12 @@
 - 세션은 입력과 출력의 연결고리
 <img src="https://user-images.githubusercontent.com/38341386/214845700-e3a19280-7ef7-4656-9843-85b9af24aa14.png">
 
+AVCaptureSession
+- 캡처 동작을 구성하고 입력 장치에서 출력 캡처로의 데이터 흐름을 조정하는 개체
+- An object that configures capture behavior and coordinates the flow of data from input devices to capture outputs
+
 
 ## 출처
 - [AVFoundation Apple Documentation](https://developer.apple.com/documentation/avfoundation)
 - [AVFoundation Overview](https://developer.apple.com/av-foundation/)
+- [AVCaptureDevice](https://developer.apple.com/documentation/avfoundation/avcapturedevice)
