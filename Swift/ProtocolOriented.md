@@ -62,9 +62,65 @@ OOP의 상속(Inheritance)
 - where Self와 같은 Generic type 활용 가능
     - (부연설명 추가)
 
-## Presentation Layer층에 MVVM + POP로 간단한 예시 만들기
-- 
+## Collections of Protocol Types
+프로토콜 타입은 배열 또는 딕셔너리와 같은 Collection의 타입으로 사용 가능
 
+```swift
+protocol MediaDataRepresentable {
+    associatedtype Media
+    var data: [Media] { get }
+    var score: Int { get set }
+}
+protocol TextRepresentable {
+    var textualDescription: String { get }
+}
+// PictureRepresenter
+struct PictureRepresenter: MediaDataRepresentable {
+    typealias Media = Color
+    
+    var score: Int = 0
+    var data: [Media] {
+        var vr = [Media]()
+        vr.append(Color.red)
+        return vr
+    }
+}
+extension PictureRepresenter: TextRepresentable {
+    var textualDescription: String {
+        return "Array is \(data)"
+    }
+}
+// VideoRepresenter
+struct VideoRepresenter: MediaDataRepresentable {
+    typealias Media = (Color, Color)
+    var score: Int = 5
+    var data: [Media] = [(Color.blue, Color.yellow)]
+}
+
+extension VideoRepresenter: TextRepresentable {
+    var textualDescription: String {
+        return "Array is \(data)"
+    }
+}
+// Class
+class MediaDataManager {
+    var mediaRepresenters: [TextRepresentable] = []
+    func getMediaRepresenters() {
+        // mediaRepresenters의 타입은 TextRepresentable 이지만 appended된 원소는 PictureRepresenter 또는 VideoRepresenter
+        mediaRepresenters.append(PictureRepresenter())
+        mediaRepresenters.append(VideoRepresenter())
+    }
+    func printTextDescriptions() {
+        for mediaRepresenter in mediaRepresenters {
+            // TextRepresentable의 textualDescription에 access
+            print("\(mediaRepresenter.textualDescription)")
+        }
+    }
+}
+```
+}
+- mediaRepresenters 배열의 element는 PictureRepresenter 또는 VideoRepresenter
+- 그렇지만 동시에 TextRepresentable 타입이며, TextRepresentable은 textualDescription 프로퍼티를 가지기 때문에 루프를 통해 안전하게 mediaRepresenter.textualDescription에 접근가능
 
 ## 출처
 - [프로토콜이란](https://medium.com/@jgj455/%EC%98%A4%EB%8A%98%EC%9D%98-swift-%EC%83%81%EC%8B%9D-protocol-f18c82571dad)
@@ -72,3 +128,4 @@ OOP의 상속(Inheritance)
 - [Swift – 프로토콜 지향 프로그래밍](https://blog.yagom.net/531/)
 - [Handling SwiftUI Views Using Protocol-Oriented Programming](https://betterprogramming.pub/handle-swiftui-views-using-protocol-oriented-programming-d07741f58f4b)
 - [Getting Started with SwiftUI and Combine Using MVVM and Protocols for iOS](https://medium.com/swlh/getting-started-with-swiftui-and-combine-using-mvvm-and-protocols-for-ios-d8c37731a1d9)
+- [Collections of Protocol Types](https://bbiguduk.gitbook.io/swift/language-guide-1/protocols#collections-of-protocol-types)

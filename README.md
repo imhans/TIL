@@ -3,6 +3,7 @@
 - [Tuist](%08Tuist.md)
 - [Unit Test](UnitTest.md)
 - [Compiletime vs. Runtime](Compiletime.md)
+- [SOLID Principles](SOLID.md)
 
 # Swift
 - [AVFoundation](Swift/AVFoundation.md)
