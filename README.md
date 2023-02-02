@@ -6,6 +6,7 @@
 - [SOLID Principles](SOLID.md)
 
 # Swift
+- [Delegate Pattern](Swift/DelegatePattern.md)
 - [AVFoundation](Swift/AVFoundation.md)
 - [Generics](Swift/Generics.md)
 - [Value Types and Refrenece Types](Swift/Types.md)
