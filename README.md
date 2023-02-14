@@ -6,6 +6,7 @@
 - [SOLID Principles](SOLID.md)
 
 # Swift
+- [Timer Publisher](Swift/TimerPublisher.md)
 - [Delegate Pattern](Swift/DelegatePattern.md)
 - [AVFoundation](Swift/AVFoundation.md)
 - [Generics](Swift/Generics.md)
