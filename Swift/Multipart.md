@@ -117,6 +117,47 @@ print(String(data: data, encoding: .utf8)!)
 ```
 
 
+## Using Alamofire
+> iOS, macOS를 위한 Swift 기반 HTTP 네트워킹 라이브러리
+
+```swift
+static func uploadVideoFile(item: InteractionItem, completion: String, fileUrl: URL) async throws -> String {
+    guard let urlHttp = URL(string: AppData.interactionSubmitHttpUrl) else {
+        fatalError("Invalid URL")
+    }
+    let header: HTTPHeaders = [
+        "Content-Type": "multipart/form-data"
+    ]
+    let parameters: [String: Any] = [
+        "user_seq": AppData.userInfo.userSeq,
+        "project_seq": AppData.userInfo.projectSeq,
+        "trial_index": AppData.userInfo.trialIndex,
+        "interaction_type": item.type.code,
+        "interaction_number": item.number,
+        "complete_yn": completion
+    ]    
+    let request = AF.upload(multipartFormData: { MultipartFormData in
+        // body
+        for (key, value) in parameters {
+            MultipartFormData.append("\(value)".data(using: .utf8)!, withName: key)
+        }
+        // file
+        MultipartFormData.append(fileUrl, withName: "uploadFile", fileName: fileUrl.lastPathComponent, mimeType: "video/mp4")
+    }, to: urlHttp, method: .post, headers: header)
+    .validate(statusCode: 200..<500)
+    .responseDecodable(of: ResponseBody.self) { response in
+        switch response.result {
+            // handle response here
+            case .success(let response):
+            case .failure(let error):
+        }
+    }
+    // add async return here
+}
+```
+
+
 ## 출처
 - [multipart/form-data 이용해서 사진/이미지 배열 업로드하기](https://lena-chamna.netlify.app/post/uploading_array_of_images_using_multipart_form-data_in_swift/)
 - [Easy multipart file upload for Swift](https://theswiftdev.com/easy-multipart-file-upload-for-swift/)
+- [Alamofire official](https://github.com/Alamofire/Alamofire)
