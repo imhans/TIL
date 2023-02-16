@@ -121,7 +121,7 @@ print(String(data: data, encoding: .utf8)!)
 > iOS, macOS를 위한 Swift 기반 HTTP 네트워킹 라이브러리
 
 ```swift
-static func uploadVideoFile(item: InteractionItem, completion: String, fileUrl: URL) async throws -> String {
+static func uploadVideoFile(item: InteractionItem, completion: String, fileUrl: URL) async throws -> T {
     guard let urlHttp = URL(string: AppData.interactionSubmitHttpUrl) else {
         fatalError("Invalid URL")
     }
@@ -145,14 +145,8 @@ static func uploadVideoFile(item: InteractionItem, completion: String, fileUrl: 
         MultipartFormData.append(fileUrl, withName: "uploadFile", fileName: fileUrl.lastPathComponent, mimeType: "video/mp4")
     }, to: urlHttp, method: .post, headers: header)
     .validate(statusCode: 200..<500)
-    .responseDecodable(of: ResponseBody.self) { response in
-        switch response.result {
-            // handle response here
-            case .success(let response):
-            case .failure(let error):
-        }
-    }
-    // add async return here
+    
+    return request.serializingDecodable().value
 }
 ```
 
