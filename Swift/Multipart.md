@@ -146,7 +146,7 @@ static func uploadVideoFile(item: InteractionItem, completion: String, fileUrl: 
     }, to: urlHttp, method: .post, headers: header)
     .validate(statusCode: 200..<500)
     
-    return request.serializingDecodable().value
+    return request.serializingDecodable(T.self).value
 }
 ```
 
