@@ -41,6 +41,42 @@ class UserData {
 ```
 
 
+- A default object must be a property list—that is, an instance of NSData, NSString, NSNumber, NSDate, NSArray, or NSDictionary.
+- If you want to store any other type of object, you should typically archive it to create an instance of NSData.
+
+```swift
+@propertyWrapper
+struct StorageObject<T> {
+    let key: String
+    let defaultValue: T
+    let storage: UserDefaults
+
+    var wrappedValue: T {
+        get {
+            if let data = storage.data(forKey: key) as? Data {
+                return JsonDecoder().decode(defaultValue.self, from: data)
+            }
+            return defaultValue
+        }
+        set {
+            storage.set(JsonDecoder().encode(newValue), forKey: key)
+        }
+    }
+
+    init(key: String, defaultValue: T, storage: UserDefaults = .standard) {
+        self.key = key
+        self.defaultValue = defaultValue
+        self.storage = storage
+    }
+}
+
+class UserData {
+    @StorageObject(key: "persons_key", defaultValue: [])
+    static var persons: [Person]
+}
+```
+
 ## 출처
 - [Property wrappers in Swift](https://www.swiftbysundell.com/articles/property-wrappers-in-swift/)
 - [WWDC2019](https://developer.apple.com/videos/play/wwdc2019/402/)
+- [UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults)
