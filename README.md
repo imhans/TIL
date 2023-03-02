@@ -4,6 +4,7 @@
 - [Unit Test](UnitTest.md)
 - [Compiletime vs. Runtime](Compiletime.md)
 - [SOLID Principles](SOLID.md)
+- [Bearer Token](BearerToken.md)
 
 # Swift
 - [multipart/form-data | Content-Type](Swift/Multipart.md)
